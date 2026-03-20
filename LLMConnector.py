@@ -30,6 +30,8 @@ def return_question_sql(question):
     * If nflId is NULL, that represents the position of the ball for a given play. Be sure to filter for where nflId is not null when looking for specific player positions. You can also find the position of the ball in the tracking data table with the displayName, 'football.'
     * You may not always have the answer to a question directly in a column in the database. It is your job to use what data you do have available to compute the requested stats.
     * If a query is vague where there could be multiple answers, you should provide multiple answers with reasoning as to why you picked the answers that you did.  
+    * In tracking_data, nflId is stored as VARCHAR and contains 'NA' for ball tracking rows. Never cast nflId to a numeric type. Always join on nflId as VARCHAR, or filter with WHERE t.nflId != 'NA' before joining.
+    * When querying receiving stats, always filter with hadPassReception = 1 to ensure only plays where the player actually caught a pass are included.
     Here is the schema for the database: 
     ''' + format_database_schema()
     request = client.chat.completions.create(

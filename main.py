@@ -49,7 +49,8 @@ def ask_question(question: QuestionRequest):
                                 answer_token_usage=answer_token, latency_ms=latency_ms, model_used=model_used)
     except Exception as e:
         question_text = question.question_text
-        question_answer = question_sql = question_token = answer_token = latency_ms = model_used = None
+        question_answer = question_sql = question_token = answer_token = latency_ms = None
+        model_used = "unknown"
         success = False
         error_message = str(e)
         raise HTTPException(status_code=400, detail=str(e))
