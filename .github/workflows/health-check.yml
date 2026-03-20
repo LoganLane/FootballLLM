@@ -1,0 +1,37 @@
+on: 
+  push:
+    branches: 
+      - main
+
+jobs:
+  health_check:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: checkout - check out the repository
+        uses: actions/checkout@v4
+
+      - name: setup python - Sets up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: install dependencies - installs dependencies
+        run: pip install -r requirements.txt
+
+      - name: create empty database
+        run: python -c "import duckdb; duckdb.connect('my_database.duckdb').close()"
+
+      - name: run uvicorn - Starts server in background
+        env:
+          API_KEY: dummy
+          API_URL: http://localhost
+          AUTH_KEY: dummy
+        run: uvicorn main:app --port 8001 &
+
+      - name: sleep
+        run: sleep 3
+
+      - name: health_test
+        run: curl --fail http://localhost:8001/v1/health
+    
+  
