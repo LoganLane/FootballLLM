@@ -26,10 +26,13 @@ jobs:
           API_KEY: dummy
           API_URL: http://localhost
           AUTH_KEY: dummy
-        run: uvicorn main:app --port 8001 &
+        run: uvicorn main:app --port 8001 > uvicorn.log 2>&1 &
 
       - name: sleep
-        run: sleep 3
+        run: sleep 8
+
+      - name: check uvicorn running
+        run: curl http://localhost:8001/v1/health || (cat uvicorn.log && exit 1)
 
       - name: health_test
         run: curl --fail http://localhost:8001/v1/health
