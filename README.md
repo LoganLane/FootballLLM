@@ -166,6 +166,10 @@ docker compose up
 
 ## Data
 > **Note:** The dataset may no longer be publicly available on Kaggle as of March 2026.
+> 
+> **Note:** The dataset covers a subset of games from the 2022 NFL regular season. Not all games from each week are included, which may result in totals that differ from official NFL statistics.
+>
+> 
 This project uses the [NFL Big Data Bowl 2025](https://www.kaggle.com/competitions/nfl-big-data-bowl-2025) dataset, which contains Next Gen Stats player tracking data at 10 frames per second for weeks 1-9 of the 2022 NFL regular season. The dataset includes:
 
 - **games.csv** — game-level metadata
